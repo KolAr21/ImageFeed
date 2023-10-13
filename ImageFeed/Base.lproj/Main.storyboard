@@ -40,8 +40,19 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHj-nG-7Cy" customClass="GradientView" customModule="ImageFeed" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="127" width="361" height="34"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwn-hD-5oy" userLabel="Date Label">
+                                                            <rect key="frame" x="8" y="10.333333333333343" width="133" height="15.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" name="YP White"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="hwn-hD-5oy" firstAttribute="leading" secondItem="FHj-nG-7Cy" secondAttribute="leading" constant="8" id="WMh-K4-iQd"/>
                                                         <constraint firstAttribute="height" constant="34" id="aEb-dG-xAM"/>
+                                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="hwn-hD-5oy" secondAttribute="trailing" constant="220" id="t3K-Q8-N83"/>
+                                                        <constraint firstAttribute="bottom" secondItem="hwn-hD-5oy" secondAttribute="bottom" constant="8" id="xtv-kY-Yr1"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -49,12 +60,6 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwn-hD-5oy" userLabel="Date Label">
-                                                    <rect key="frame" x="24.000000000000007" y="137.33333333333334" width="101.66666666666669" height="15.666666666666657"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" name="YP White"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Fq-WP-edD">
                                                     <rect key="frame" x="333" y="4" width="44" height="44"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -63,11 +68,8 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstItem="hwn-hD-5oy" firstAttribute="leading" secondItem="mKE-Gh-LYB" secondAttribute="leading" constant="8" id="EfR-Sv-yxz"/>
-                                                <constraint firstItem="mKE-Gh-LYB" firstAttribute="bottom" secondItem="hwn-hD-5oy" secondAttribute="bottom" constant="8" id="JTX-FG-3ep"/>
                                                 <constraint firstItem="2Fq-WP-edD" firstAttribute="trailing" secondItem="mKE-Gh-LYB" secondAttribute="trailing" id="LGM-P5-Km9"/>
                                                 <constraint firstItem="FHj-nG-7Cy" firstAttribute="leading" secondItem="7bX-6z-0jb" secondAttribute="leading" constant="16" id="MWB-RQ-WTF"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hwn-hD-5oy" secondAttribute="trailing" constant="20" symbolic="YES" id="UKX-GX-Sp8"/>
                                                 <constraint firstItem="2Fq-WP-edD" firstAttribute="top" secondItem="mKE-Gh-LYB" secondAttribute="top" id="Zvc-nl-5yb"/>
                                                 <constraint firstItem="mKE-Gh-LYB" firstAttribute="top" secondItem="7bX-6z-0jb" secondAttribute="top" constant="4" id="cZh-Xm-8TC"/>
                                                 <constraint firstAttribute="trailing" secondItem="mKE-Gh-LYB" secondAttribute="trailing" constant="16" id="e7W-TV-pyY"/>
