@@ -13,11 +13,11 @@ final class SingleImageViewController: UIViewController {
         return .lightContent
     }
 
-    var image: UIImage! {
+    var image: UIImage? {
         didSet {
             guard isViewLoaded else { return }
             imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
+            rescaleAndCenterImageInScrollView(image: image ?? UIImage(named: "0")!)
         }
     }
 
@@ -31,7 +31,7 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
 
-        rescaleAndCenterImageInScrollView(image: image)
+        rescaleAndCenterImageInScrollView(image: image ?? UIImage(named: "0")!)
     }
 
     private func rescaleAndCenterImageInScrollView(image: UIImage) {

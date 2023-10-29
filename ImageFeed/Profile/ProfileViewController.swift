@@ -9,9 +9,49 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
-    private var avatarView: UIImageView!
-    private var nameLabel: UILabel!
-    private var nicknameLabel: UILabel!
+    private var avatarView: UIImageView = {
+        let image = UIImage(named: "avatar")
+        let view = UIImageView(image: image)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 35
+        return view
+    }()
+
+    private var logoutButton: UIButton = {
+        let imageButton = UIImage(named: "logout_button")
+        let logoutButton = UIButton()
+        logoutButton.setImage(imageButton, for: .normal)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        return logoutButton
+    }()
+
+    private var nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.text = "Екатерина Новикова"
+        nameLabel.textColor = UIColor(named: "YP White")
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return nameLabel
+    }()
+
+    private var nicknameLabel: UILabel = {
+        let nicknameLabel = UILabel()
+        nicknameLabel.text = "@ekaterina_nov"
+        nicknameLabel.textColor = UIColor(named: "YP Gray")
+        nicknameLabel.font = UIFont.systemFont(ofSize: 13)
+        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return nicknameLabel
+    }()
+
+    private var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Hello, world!"
+        label.textColor = UIColor(named: "YP White")
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -29,10 +69,6 @@ final class ProfileViewController: UIViewController {
     
 
     private func addAvatarProfile() {
-        let avatarImage = UIImage(named: "avatar")
-        avatarView = UIImageView(image: avatarImage)
-
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(avatarView)
 
         NSLayoutConstraint.activate([
@@ -41,17 +77,10 @@ final class ProfileViewController: UIViewController {
             avatarView.widthAnchor.constraint(equalToConstant: 70),
             avatarView.heightAnchor.constraint(equalToConstant: 70)
         ])
-
-        avatarView.clipsToBounds = true
-        avatarView.layer.cornerRadius = 35
     }
 
     private func addLogoutButton() {
-        let imageButton = UIImage(named: "logout_button")
-        let logoutButton = UIButton()
-        logoutButton.setImage(imageButton, for: .normal)
         view.addSubview(logoutButton)
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -63,46 +92,24 @@ final class ProfileViewController: UIViewController {
     private func didTapLogoutButton() {}
 
     private func addNameLabel() {
-        let nameLabel = UILabel()
-        nameLabel.text = "Екатерина Новикова"
-        nameLabel.textColor = UIColor(named: "YP White")
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
-
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
+
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
             nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 8)
         ])
-
-        self.nameLabel = nameLabel
     }
 
     private func addNicknameLabel() {
-        let nicknameLabel = UILabel()
-        nicknameLabel.text = "@ekaterina_nov"
-        nicknameLabel.textColor = UIColor(named: "YP Gray")
-        nicknameLabel.font = UIFont.systemFont(ofSize: 13)
-
-        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nicknameLabel)
 
         NSLayoutConstraint.activate([
             nicknameLabel.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
             nicknameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8)
         ])
-
-        self.nicknameLabel = nicknameLabel
     }
 
     private func addDescriptionLabel() {
-        let descriptionLabel = UILabel()
-
-        descriptionLabel.text = "Hello, world!"
-        descriptionLabel.textColor = UIColor(named: "YP White")
-        descriptionLabel.font = UIFont.systemFont(ofSize: 13)
-
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
