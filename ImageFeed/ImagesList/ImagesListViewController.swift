@@ -12,6 +12,7 @@ final class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -19,8 +20,7 @@ final class ImagesListViewController: UIViewController {
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
+        
         return formatter
     }()
     
@@ -31,6 +31,18 @@ final class ImagesListViewController: UIViewController {
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            let viewController = segue.destination as! SingleImageViewController
+            let indexPath = sender as! IndexPath
+            let image = UIImage(named: photosName[indexPath.row])
+            viewController.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
 }
 
 extension ImagesListViewController: UITableViewDataSource {
@@ -58,7 +70,7 @@ extension ImagesListViewController {
         cell.dateLabel.text = dateFormatter.string(from: Date())
 
         let isLike = indexPath.row % 2 == 0
-        let imageLike = isLike ? UIImage(named: "Like") : UIImage(named: "NoLike")
+        let imageLike = isLike ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.imageView?.image = imageLike
     }
 }
@@ -77,5 +89,10 @@ extension ImagesListViewController: UITableViewDelegate {
         return cellHeight
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
+    }
 }
+
 
