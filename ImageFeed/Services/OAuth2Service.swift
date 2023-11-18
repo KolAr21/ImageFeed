@@ -20,45 +20,6 @@ final class OAuth2Service {
         }
     }
 
-//    func fetchOAuthToken(
-//        _ code: String,
-//        completion: @escaping (Result<String, Error>) -> Void
-//    ){
-//        var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token")
-//        urlComponents?.queryItems = [
-//            URLQueryItem(name: "client_id", value: accessKey),
-//            URLQueryItem(name: "client_secret", value: secretKey),
-//            URLQueryItem(name: "redirect_uri", value: redirectURI),
-//            URLQueryItem(name: "code", value: code),
-//            URLQueryItem(name: "grant_type", value: "authorization_code")
-//        ]
-//
-//        guard let url = urlComponents?.url else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data,
-//               let response = response,
-//               let statusCode = (response as? HTTPURLResponse)?.statusCode
-//            {
-//                if 200 ..< 300 ~= statusCode {
-//                    completion(.success("data"))
-//                } else {
-//                    completion(.failure(NetworkError.httpStatusCode(statusCode)))
-//                }
-//            } else if let error = error {
-//                completion(.failure(NetworkError.urlRequestError(error)))
-//            } else {
-//                completion(.failure(NetworkError.urlSessionError))
-//            }
-//        }
-//
-//        task.resume()
-//
-//
-//
-//    }
-
     func fetchOAuthToken(
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void
