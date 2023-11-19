@@ -14,9 +14,9 @@ protocol WebViewViewControllerDelegate: AnyObject {
 
 final class WebViewViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
-    weak var delegate: WebViewViewControllerDelegate?
-
     @IBOutlet private var progressView: UIProgressView!
+
+    weak var delegate: WebViewViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,23 +63,23 @@ final class WebViewViewController: UIViewController {
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 
-    func webViewViewControllerDidCancel() {
+    private func webViewViewControllerDidCancel() {
         dismiss(animated: true)
     }
 
-    @IBAction func didTapBackButton(_ sender: Any) {
+    @IBAction private func didTapBackButton(_ sender: Any) {
         delegate?.webViewViewControllerDidCancel(self)
     }
 }
 
 private extension WebViewViewController {
     func loadWebView() {
-        var urlComponents = URLComponents(string: unsplashAuthorizeURLString)
+        var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString)
         urlComponents?.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey),
-            URLQueryItem(name: "redirect_uri", value: redirectURI),
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: accessScope)
+            URLQueryItem(name: "scope", value: Constants.accessScope)
         ]
         guard let url = urlComponents?.url else { return }
 
@@ -108,8 +108,6 @@ extension WebViewViewController: WKNavigationDelegate {
               let urlComponents = URLComponents(string: url.absoluteString),
               urlComponents.path == "/oauth/authorize/native",
               let codeItem = urlComponents.queryItems?.first(where: { $0.name == "code" })
-              //let items = urlComponents.queryItems,
-              //let codeItem = items.first(where: { $0.name == "code" })
         else {
             return nil
         }
