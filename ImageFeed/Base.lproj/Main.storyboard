@@ -141,9 +141,9 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOM-aK-VTQ">
-                                <rect key="frame" x="0.0" y="0.0" width="184" height="42"/>
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="42"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Button" image="nav_back_button"/>
+                                <state key="normal" image="nav_back_button"/>
                                 <connections>
                                     <action selector="didTapBackButton:" destination="92v-Tz-0ce" eventType="touchUpInside" id="Q6m-Bd-LoQ"/>
                                 </connections>

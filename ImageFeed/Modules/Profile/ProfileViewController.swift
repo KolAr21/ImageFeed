@@ -9,6 +9,8 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
+//    private let profileService = ProfileService.shared
+
     private var avatarView: UIImageView = {
         let image = UIImage(named: "avatar")
         let view = UIImageView(image: image)
@@ -65,6 +67,17 @@ final class ProfileViewController: UIViewController {
         addNameLabel()
         addNicknameLabel()
         addDescriptionLabel()
+//        profileService.fetchProfile(OAuth2TokenStorage().token ?? "") { result in
+//            switch result {
+//            case .success(let body):
+//                self.nameLabel.text = body.name
+//                self.nicknameLabel.text = body.loginName
+//                self.descriptionLabel.text = body.bio
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                fatalError("error in profile")
+//            }
+//        }
     }
     
 
