@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
 
-//    private let profileService = ProfileService.shared
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
 
     private var avatarView: UIImageView = {
         let image = UIImage(named: "avatar")
@@ -67,19 +69,38 @@ final class ProfileViewController: UIViewController {
         addNameLabel()
         addNicknameLabel()
         addDescriptionLabel()
-//        profileService.fetchProfile(OAuth2TokenStorage().token ?? "") { result in
-//            switch result {
-//            case .success(let body):
-//                self.nameLabel.text = body.name
-//                self.nicknameLabel.text = body.loginName
-//                self.descriptionLabel.text = body.bio
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//                fatalError("error in profile")
-//            }
-//        }
+
+        updateProfileDetails(profile: profileService.profile)
+
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
-    
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        avatarView.kf.setImage(with: url,
+                              placeholder: UIImage(named: "avatar_profile"),
+                              options: [.processor(processor)])
+    }
+
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profileService.profile else { return }
+        nameLabel.text = profile.name
+        nicknameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
 
     private func addAvatarProfile() {
         view.addSubview(avatarView)
