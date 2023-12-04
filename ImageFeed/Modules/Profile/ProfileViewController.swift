@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
 
-    private var avatarView: UIImageView = {
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+
+    lazy private var avatarView: UIImageView = {
         let image = UIImage(named: "avatar")
         let view = UIImageView(image: image)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +22,7 @@ final class ProfileViewController: UIViewController {
         return view
     }()
 
-    private var logoutButton: UIButton = {
+    lazy private var logoutButton: UIButton = {
         let imageButton = UIImage(named: "logout_button")
         let logoutButton = UIButton()
         logoutButton.setImage(imageButton, for: .normal)
@@ -26,7 +30,7 @@ final class ProfileViewController: UIViewController {
         return logoutButton
     }()
 
-    private var nameLabel: UILabel = {
+    lazy private var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Екатерина Новикова"
         nameLabel.textColor = UIColor(named: "YP White")
@@ -35,7 +39,7 @@ final class ProfileViewController: UIViewController {
         return nameLabel
     }()
 
-    private var nicknameLabel: UILabel = {
+    lazy private var nicknameLabel: UILabel = {
         let nicknameLabel = UILabel()
         nicknameLabel.text = "@ekaterina_nov"
         nicknameLabel.textColor = UIColor(named: "YP Gray")
@@ -44,7 +48,7 @@ final class ProfileViewController: UIViewController {
         return nicknameLabel
     }()
 
-    private var descriptionLabel: UILabel = {
+    lazy private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello, world!"
         label.textColor = UIColor(named: "YP White")
@@ -65,8 +69,37 @@ final class ProfileViewController: UIViewController {
         addNameLabel()
         addNicknameLabel()
         addDescriptionLabel()
+
+        updateProfileDetails(profile: profileService.profile)
+
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
-    
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        //let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        avatarView.kf.setImage(with: url,
+                              placeholder: UIImage(named: "avatar_profile"))
+    }
+
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profileService.profile else { return }
+        nameLabel.text = profile.name
+        nicknameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
 
     private func addAvatarProfile() {
         view.addSubview(avatarView)
