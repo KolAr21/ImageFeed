@@ -24,9 +24,7 @@ final class ProfileImageService {
         _ completion: @escaping (Result<String, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if task != nil {
-            task?.cancel()
-        }
+        task?.cancel()
         guard let token = OAuth2TokenStorage().token else { return }
         let request = profileImageTokenRequest(token: token, username: username)
         let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in

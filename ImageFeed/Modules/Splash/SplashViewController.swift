@@ -54,7 +54,10 @@ final class SplashViewController: UIViewController {
 
     private func switchToTabBarController() {
         DispatchQueue.main.async {
-            guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+            guard let window = UIApplication.shared.windows.first else {
+                assertionFailure("Invalid Configuration")
+                return
+            }
             let tabBarController = UIStoryboard(name: "Main", bundle: .main)
                 .instantiateViewController(withIdentifier: "TabBarController")
             window.rootViewController = tabBarController
@@ -85,7 +88,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 }
             case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
-                AlertPresenter().showError(alertModel: AlertModel(completion: nil), delegate: self)
+                AlertPresenter.showError(alertModel: AlertModel(completion: nil), delegate: self)
             }
         }
     }
@@ -108,7 +111,7 @@ extension SplashViewController {
                             userInfo: ["URL": url]
                         )
                     case .failure:
-                        AlertPresenter().showError(alertModel: AlertModel(completion: nil), delegate: self)
+                        AlertPresenter.showError(alertModel: AlertModel(completion: nil), delegate: self)
                         break
                     }
                 }
@@ -118,7 +121,7 @@ extension SplashViewController {
                 }
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                AlertPresenter().showError(alertModel: AlertModel(completion: nil), delegate: self)
+                AlertPresenter.showError(alertModel: AlertModel(completion: nil), delegate: self)
                 break
             }
         }

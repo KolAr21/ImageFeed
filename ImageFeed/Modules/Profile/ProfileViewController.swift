@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
 
-    private var avatarView: UIImageView = {
+    lazy private var avatarView: UIImageView = {
         let image = UIImage(named: "avatar")
         let view = UIImageView(image: image)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ final class ProfileViewController: UIViewController {
         return view
     }()
 
-    private var logoutButton: UIButton = {
+    lazy private var logoutButton: UIButton = {
         let imageButton = UIImage(named: "logout_button")
         let logoutButton = UIButton()
         logoutButton.setImage(imageButton, for: .normal)
@@ -30,7 +30,7 @@ final class ProfileViewController: UIViewController {
         return logoutButton
     }()
 
-    private var nameLabel: UILabel = {
+    lazy private var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Екатерина Новикова"
         nameLabel.textColor = UIColor(named: "YP White")
@@ -39,7 +39,7 @@ final class ProfileViewController: UIViewController {
         return nameLabel
     }()
 
-    private var nicknameLabel: UILabel = {
+    lazy private var nicknameLabel: UILabel = {
         let nicknameLabel = UILabel()
         nicknameLabel.text = "@ekaterina_nov"
         nicknameLabel.textColor = UIColor(named: "YP Gray")
@@ -48,7 +48,7 @@ final class ProfileViewController: UIViewController {
         return nicknameLabel
     }()
 
-    private var descriptionLabel: UILabel = {
+    lazy private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello, world!"
         label.textColor = UIColor(named: "YP White")
@@ -89,10 +89,9 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        //let processor = RoundCornerImageProcessor(cornerRadius: 35)
         avatarView.kf.setImage(with: url,
-                              placeholder: UIImage(named: "avatar_profile"),
-                              options: [.processor(processor)])
+                              placeholder: UIImage(named: "avatar_profile"))
     }
 
     private func updateProfileDetails(profile: Profile?) {
