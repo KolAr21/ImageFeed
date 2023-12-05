@@ -19,6 +19,12 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service()
     private let oauth2TokenStorage = OAuth2TokenStorage()
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("LLLLLLLLLL")
+        ImagesListService().fetchPhotosNextPage()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         createSplashScreen()
