@@ -84,6 +84,8 @@
 import Foundation
 
 class ImagesListService {
+    static let DidChangeNotification = Notification.Name(rawValue: "ImageListServiceDidChange")
+
     private (set) var photos: [Photo] = []
 
     private var lastLoadedPage: Int?
@@ -100,6 +102,7 @@ class ImagesListService {
                 DispatchQueue.main.async {
                     self.photos += photoResults.map { Photo(photoResult: $0) }
                     self.lastLoadedPage = nextPage + 1
+                    NotificationCenter.default.post(name: ImagesListService.DidChangeNotification, object: self)
                 }
             case .failure(let error):
                 print("Error fetching photos: \(error)")
