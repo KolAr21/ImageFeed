@@ -14,5 +14,9 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet var imageCell: UIImageView!
     @IBOutlet var likeButton: UIButton!
     @IBOutlet var dateLabel: UILabel!
+
+    override func prepareForReuse() {
+        imageCell.kf.cancelDownloadTask()
+    }
     
 }
