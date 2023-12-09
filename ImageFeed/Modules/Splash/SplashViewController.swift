@@ -22,7 +22,7 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LLLLLLLLLL")
-        ImagesListService().fetchPhotosNextPage()
+        //ImagesListService().fetchPhotosNextPage()
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -65,6 +65,9 @@
                                                     <rect key="frame" x="354" y="4" width="44" height="44"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="like_button_on"/>
+                                                    <connections>
+                                                        <action selector="didTapLike" destination="Lm1-HN-idN" eventType="touchUpInside" id="zlE-Ge-LHU"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

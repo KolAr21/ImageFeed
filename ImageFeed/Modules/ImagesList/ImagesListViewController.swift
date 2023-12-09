@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol ImagesListViewControllerDelegate {
+    func didTapLikeList(cell: ImagesListCell)
+}
+
 final class ImagesListViewController: UIViewController {
 
     private var imageListServiceObserver: NSObjectProtocol?
@@ -43,6 +47,7 @@ final class ImagesListViewController: UIViewController {
                 queue: .main
             ) { [weak self] _ in
                 guard let self = self else { return }
+                //print(photos.count)
                 print("ImagesListService.DidChangeNotification")
                 self.updateTableViewAnimated()
             }
@@ -59,18 +64,18 @@ final class ImagesListViewController: UIViewController {
     }
 
     private func updateTableViewAnimated() {
-        let oldCount = photos.count
-        let newCount = imageListService.photos.count
-        photos = imageListService.photos
-        if oldCount < newCount {
-            tableView.performBatchUpdates {
+        DispatchQueue.main.async {
+            let oldCount = self.photos.count
+            let newCount = self.imageListService.photos.count
+            self.photos = self.imageListService.photos
+            print(self.photos.count)
+            self.tableView.performBatchUpdates({
                 let indexPaths = (oldCount..<newCount).map { i in
                     IndexPath(row: i, section: 0)
                 }
-                tableView.insertRows(at: indexPaths, with: .automatic)
-            }
-        } else {
-            self.imageListService.fetchPhotosNextPage()
+                self.tableView.insertRows(at: indexPaths, with: .automatic)
+            })
+            print(self.photos.count)
         }
     }
 }
@@ -78,6 +83,7 @@ final class ImagesListViewController: UIViewController {
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print("tb", photos.count)
         return photos.count
     }
     
@@ -92,14 +98,17 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        cell.delegate = self
         cell.imageCell.kf.indicatorType = .activity
         let imageFromPhotos = photos[indexPath.row].thumbImageURL
         cell.imageCell.kf.setImage(with: URL(string: imageFromPhotos), placeholder: UIImage(named: "placeholder_image_cell"))
         
         cell.dateLabel.text = dateFormatter.string(from: Date())
 
-        let isLike = indexPath.row % 2 == 0
-        let imageLike = isLike ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+//        let isLike = indexPath.row % 2 == 0
+//        let imageLike = isLike ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+//        cell.likeButton.imageView?.image = imageLike
+        let imageLike = photos[indexPath.row].isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.imageView?.image = imageLike
     }
 }
@@ -124,6 +133,26 @@ extension ImagesListViewController: UITableViewDelegate {
         let lastIndex = tableView.numberOfRows(inSection: 0) - 1
         if lastIndex == indexPath.row {
             imageListService.fetchPhotosNextPage()
+        }
+    }
+}
+
+extension ImagesListViewController: ImagesListViewControllerDelegate {
+    func didTapLikeList(cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        print("ImagesListViewController", photos[indexPath.row].isLiked)
+        imageListService.changeLike(photoId: photos[indexPath.row].id, isLike: photos[indexPath.row].isLiked) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success():
+                print("LOH")
+                self.photos = self.imageListService.photos
+                let imageLike = self.photos[indexPath.row].isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+                cell.likeButton.imageView?.image = imageLike
+                print("Last", self.photos[indexPath.row].isLiked)
+            case .failure(let error):
+                print("didTapLikeList error: \(error)")
+            }
         }
     }
 }

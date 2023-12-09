@@ -36,6 +36,8 @@ extension URLSession {
                         completion(.failure(NetworkError.urlRequestError(error)))
                     }
                 } else {
+                    print("TYTYTY")
+                    print(data)
                     completion(.failure(NetworkError.httpStatusCode(statusCode)))
                 }
             } else if let error = error {
