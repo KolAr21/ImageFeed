@@ -25,6 +25,7 @@ final class ProfileViewController: UIViewController {
     lazy private var logoutButton: UIButton = {
         let imageButton = UIImage(named: "logout_button")
         let logoutButton = UIButton()
+        logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
         logoutButton.setImage(imageButton, for: .normal)
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         return logoutButton
@@ -89,7 +90,6 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        //let processor = RoundCornerImageProcessor(cornerRadius: 35)
         avatarView.kf.setImage(with: url,
                               placeholder: UIImage(named: "avatar_profile"))
     }
@@ -122,7 +122,20 @@ final class ProfileViewController: UIViewController {
     }
 
     @objc
-    private func didTapLogoutButton() {}
+    private func didTapLogoutButton() {
+        OAuth2TokenStorage.clean()
+        OAuth2TokenStorage.removeToken()
+        switchToSplashViewController()
+    }
+
+    private func switchToSplashViewController() {
+        guard let window = UIApplication.shared.windows.first else {
+            assertionFailure("Invalid Configuration")
+            return
+        }
+        let splashViewController = SplashViewController()
+        window.rootViewController = splashViewController
+    }
 
     private func addNameLabel() {
         view.addSubview(nameLabel)

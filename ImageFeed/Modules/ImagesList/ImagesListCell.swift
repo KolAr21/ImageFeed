@@ -26,3 +26,10 @@ final class ImagesListCell: UITableViewCell {
     }
     
 }
+
+extension ImagesListCell {
+    func setIsLiked(isLiked: Bool) {
+        let imageLike = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        likeButton.imageView?.image = imageLike
+    }
+}

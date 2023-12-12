@@ -45,7 +45,6 @@ class ImagesListService {
         taskForLike?.cancel()
         var request = URLRequest(url: URL(string: "https://api.unsplash.com/photos/\(photoId)/like") ?? Constants.defaultBaseURL)
         request.httpMethod = isLike ? "DELETE" : "POST"
-        print("changeLike", isLike)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             if let error {
                 completion(.failure(error))
@@ -65,11 +64,11 @@ class ImagesListService {
                                 size: photo.size,
                                 createdAt: photo.createdAt,
                                 welcomeDescription: photo.welcomeDescription,
+                                fullImageURL: photo.fullImageURL,
                                 thumbImageURL: photo.thumbImageURL,
                                 largeImageURL: photo.largeImageURL,
                                 isLiked: !photo.isLiked
                             )
-                        print("changeLike1", newPhoto.isLiked)
                         self.photos[index] = newPhoto
                         NotificationCenter.default.post(name: ImagesListService.DidChangeNotification, object: self)
                     }

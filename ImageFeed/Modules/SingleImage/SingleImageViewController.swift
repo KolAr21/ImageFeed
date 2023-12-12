@@ -13,25 +13,35 @@ final class SingleImageViewController: UIViewController {
         return .lightContent
     }
 
-    var image: UIImage? {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image ?? UIImage(named: "0")!)
-        }
-    }
+    var fullImageURL: URL?
+    var image: UIImage?
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
 
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
 
-        rescaleAndCenterImageInScrollView(image: image ?? UIImage(named: "0")!)
+        loadImage()
+    }
+
+    private func loadImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: fullImageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                let alertModel = AlertModel(title: "Что-то пошло не так", message: "Попробовать ещё раз?", buttonText: ["Не надо", "Повторить"], completion: [nil, loadImage])
+                AlertPresenter.showError(alertModel: alertModel, delegate: self)
+            }
+        }
     }
 
     private func rescaleAndCenterImageInScrollView(image: UIImage) {

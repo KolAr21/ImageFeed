@@ -13,14 +13,15 @@ final class AlertPresenter {
             title: alertModel.title,
             message: alertModel.message,
             preferredStyle: .alert)
-        let action = UIAlertAction(
-            title: alertModel.buttonText,
-            style: .default) { _ in
-                alertModel.completion?()
-            }
-
+        alertModel.buttonText.enumerated().forEach { ind, textButton in
+            let action = UIAlertAction(
+                title: textButton,
+                style: .default) { _ in
+                    alertModel.completion[ind]
+                }
+            alert.addAction(action)
+        }
         alert.view.accessibilityIdentifier = "Alert"
-        alert.addAction(action)
         delegate?.present(alert, animated: true, completion: nil)
     }
 }
