@@ -97,8 +97,13 @@ extension ImagesListViewController: UITableViewDataSource {
         cell.imageCell.kf.indicatorType = .activity
         let imageFromPhotos = photos[indexPath.row].thumbImageURL
         cell.imageCell.kf.setImage(with: URL(string: imageFromPhotos), placeholder: UIImage(named: "placeholder_image_cell"))
-        
-        cell.dateLabel.text = dateFormatter.string(from: Date())
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        if let date = photos[indexPath.row].createdAt {
+            cell.dateLabel.text = dateFormatter.string(from: date)
+        }
         cell.setIsLiked(isLiked: photos[indexPath.row].isLiked)
     }
 }
