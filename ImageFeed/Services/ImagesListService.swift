@@ -51,9 +51,9 @@ class ImagesListService {
                 return
             }
 
-            if let data = data,
+            if let _ = data,
                let response = response,
-               let statusCode = (response as? HTTPURLResponse)?.statusCode
+               let _ = (response as? HTTPURLResponse)?.statusCode
             {
                 DispatchQueue.main.async {
                     self.task = nil

@@ -17,7 +17,7 @@ final class AlertPresenter {
             let action = UIAlertAction(
                 title: textButton,
                 style: .default) { _ in
-                    alertModel.completion[ind]
+                    alertModel.completion[ind]?()
                 }
             alert.addAction(action)
         }

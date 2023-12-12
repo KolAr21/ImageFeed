@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    static func convertStringToDate(date: String) -> Date {
+    static func convertStringToDate(date: String) -> Date? {
         let dateFormatter = ISO8601DateFormatter()
         return dateFormatter.date(from:date)!
     }
