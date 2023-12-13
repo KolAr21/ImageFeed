@@ -124,12 +124,12 @@ final class ProfileViewController: UIViewController {
     @objc
     private func didTapLogoutButton() {
         let logout = {
-            OAuth2TokenStorage.clean()
+            WebData.clean()
             OAuth2TokenStorage.removeToken()
             self.switchToSplashViewController()
         }
-        let alertModel = AlertModel(title: "Выход", message: "Вы точно хотите выйти?", buttonText: ["Да", "Нет"], completion: [logout, nil])
-        AlertPresenter.showError(alertModel: alertModel, delegate: self)
+        let alertModel = AlertModel(title: "Пока, пока!", message: "Уверены что хотите выйти?", buttonText: ["Да", "Нет"], completion: [logout, nil])
+        AlertPresenter.showAlert(alertModel: alertModel, delegate: self)
     }
 
     private func switchToSplashViewController() {

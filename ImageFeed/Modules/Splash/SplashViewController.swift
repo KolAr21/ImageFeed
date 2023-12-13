@@ -89,7 +89,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
                 let alertModel = AlertModel(title: "Что-то пошло не так", message: "Не удалось войти в систему", buttonText: ["Ок"], completion: [])
-                AlertPresenter.showError(alertModel: alertModel, delegate: self)
+                AlertPresenter.showAlert(alertModel: alertModel, delegate: self)
             }
         }
     }
@@ -113,7 +113,7 @@ extension SplashViewController {
                         )
                     case .failure:
                         let alertModel = AlertModel(title: "Что-то пошло не так", message: "Не удалось войти в систему", buttonText: ["Ок"], completion: [])
-                        AlertPresenter.showError(alertModel: alertModel, delegate: self)
+                        AlertPresenter.showAlert(alertModel: alertModel, delegate: self)
                         break
                     }
                 }
@@ -124,7 +124,7 @@ extension SplashViewController {
             case .failure:
                 UIBlockingProgressHUD.dismiss()
                 let alertModel = AlertModel(title: "Что-то пошло не так", message: "Не удалось войти в систему", buttonText: ["Ок"], completion: [])
-                AlertPresenter.showError(alertModel: alertModel, delegate: self)
+                AlertPresenter.showAlert(alertModel: alertModel, delegate: self)
                 break
             }
         }

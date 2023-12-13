@@ -13,31 +13,35 @@ class ImagesListService {
     private (set) var photos: [Photo] = []
 
     private var task: URLSessionTask?
+    private var isDone: Bool = false
     private var taskForLike: URLSessionTask?
     private var lastLoadedPage: Int?
     private let perPage = 10
 
     func fetchPhotosNextPage() {
-        task?.cancel()
+        guard !isDone else { return }
+        isDone = true
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
 
         let request = imageListRequest(page: nextPage, perPage: perPage)
-
-        let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+        task?.cancel()
+        task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             switch result {
             case .success(let photoResults):
                 DispatchQueue.main.async {
-                    self?.task = nil
                     self?.photos += photoResults.map { Photo(photoResult: $0) }
                     self?.lastLoadedPage = nextPage + 1
+                    self?.isDone = false
+                    self?.task = nil
                     NotificationCenter.default.post(name: ImagesListService.DidChangeNotification, object: self)
                 }
             case .failure(let error):
+                self?.isDone = false
+                self?.task = nil
                 print("Error fetch photos: \(error)")
             }
         }
-        self.task = task
-        task.resume()
+        task?.resume()
     }
 
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
@@ -56,7 +60,7 @@ class ImagesListService {
                let _ = (response as? HTTPURLResponse)?.statusCode
             {
                 DispatchQueue.main.async {
-                    self.task = nil
+                    self.taskForLike = nil
                     if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
                        let photo = self.photos[index]
                        let newPhoto = Photo(
@@ -80,7 +84,7 @@ class ImagesListService {
                 completion(.failure(NetworkError.urlSessionError))
             }
         })
-        self.task = task
+        self.taskForLike = task
         task.resume()
     }
 

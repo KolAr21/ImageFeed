@@ -27,9 +27,11 @@ final class ImagesListViewController: UIViewController {
     }
     
     private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
         
-        return formatter
+        return dateFormatter
     }()
     
     override func viewDidLoad() {
@@ -98,11 +100,10 @@ extension ImagesListViewController: UITableViewDataSource {
         let imageFromPhotos = photos[indexPath.row].thumbImageURL
         cell.imageCell.kf.setImage(with: URL(string: imageFromPhotos), placeholder: UIImage(named: "placeholder_image_cell"))
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
         if let date = photos[indexPath.row].createdAt {
             cell.dateLabel.text = dateFormatter.string(from: date)
+        } else {
+            cell.dateLabel.text = ""
         }
         cell.setIsLiked(isLiked: photos[indexPath.row].isLiked)
     }

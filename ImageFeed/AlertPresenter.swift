@@ -8,7 +8,7 @@ import UIKit
 
 final class AlertPresenter {
 
-    static func showError(alertModel: AlertModel, delegate: UIViewController?) {
+    static func showAlert(alertModel: AlertModel, delegate: UIViewController?) {
         let alert = UIAlertController(
             title: alertModel.title,
             message: alertModel.message,

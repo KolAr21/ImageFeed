@@ -39,7 +39,7 @@ final class SingleImageViewController: UIViewController {
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure:
                 let alertModel = AlertModel(title: "Что-то пошло не так", message: "Попробовать ещё раз?", buttonText: ["Не надо", "Повторить"], completion: [nil, loadImage])
-                AlertPresenter.showError(alertModel: alertModel, delegate: self)
+                AlertPresenter.showAlert(alertModel: alertModel, delegate: self)
             }
         }
     }
