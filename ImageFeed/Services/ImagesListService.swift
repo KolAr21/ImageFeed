@@ -9,6 +9,7 @@ import Foundation
 
 class ImagesListService {
     static let DidChangeNotification = Notification.Name(rawValue: "ImageListServiceDidChange")
+    static let dateFormatter = ISO8601DateFormatter()
 
     private (set) var photos: [Photo] = []
 
@@ -17,6 +18,7 @@ class ImagesListService {
     private var taskForLike: URLSessionTask?
     private var lastLoadedPage: Int?
     private let perPage = 10
+
 
     func fetchPhotosNextPage() {
         guard !isDone else { return }
