@@ -19,7 +19,6 @@ class ImagesListService {
     private var lastLoadedPage: Int?
     private let perPage = 10
 
-
     func fetchPhotosNextPage() {
         guard !isDone else { return }
         isDone = true
