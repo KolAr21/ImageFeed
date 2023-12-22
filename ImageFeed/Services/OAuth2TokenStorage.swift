@@ -4,7 +4,7 @@
 //
 //  Created by Арина Колганова on 17.11.2023.
 //
-
+import WebKit
 import Foundation
 import SwiftKeychainWrapper
 
@@ -16,5 +16,9 @@ class OAuth2TokenStorage {
         get {
             KeychainWrapper.standard.string(forKey: "Auth token")
         }
+    }
+
+    static func removeToken() {
+        KeychainWrapper.standard.remove(forKey: "Auth token")
     }
 }
