@@ -8,8 +8,8 @@
 import Foundation
 
 struct AlertModel {
-    var title: String = "Что-то пошло не так"
-    var message: String = "Не удалось войти в систему"
-    var buttonText: String = "Ок"
-    var completion: (() -> ())?
+    var title: String
+    var message: String
+    var buttonText: [String] = []
+    var completion: [(() -> ())?] = []
 }
