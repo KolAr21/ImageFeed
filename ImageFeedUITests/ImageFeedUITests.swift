@@ -10,7 +10,7 @@ import XCTest
 class ImageFeedUITests: XCTestCase {
     private let login = ""
     private let password = ""
-    private let name = ""
+    private let lastName = ""
     private let username = "@"
     private let app = XCUIApplication() // переменная приложения
 
@@ -71,7 +71,7 @@ class ImageFeedUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
 
-        XCTAssertTrue(app.staticTexts[name].exists)
+        XCTAssertTrue(app.staticTexts[lastName].exists)
         XCTAssertTrue(app.staticTexts[username].exists)
 
         app.buttons["logoutButton"].tap()
