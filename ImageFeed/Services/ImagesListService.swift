@@ -7,7 +7,14 @@
 
 import Foundation
 
-class ImagesListService {
+protocol ImagesListServiceProtocol {
+    var photos: [Photo] { get }
+
+    func fetchPhotosNextPage()
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+class ImagesListService: ImagesListServiceProtocol {
     static let DidChangeNotification = Notification.Name(rawValue: "ImageListServiceDidChange")
     static let dateFormatter = ISO8601DateFormatter()
 
@@ -94,8 +101,7 @@ class ImagesListService {
                 path: "/photos"
                 + "?page=\(page)"
                 + "&&per_page=\(perPage)"
-                + "&&client_id=\(Constants.accessKey)"
-                /*+ "&&order_by=\(Constants.redirectURI)"*/,
+                + "&&client_id=\(Constants.accessKey)",
                 httpMethod: "GET",
                 baseURL: Constants.defaultBaseURL
             )

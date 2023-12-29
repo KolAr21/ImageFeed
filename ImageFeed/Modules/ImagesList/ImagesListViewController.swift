@@ -12,14 +12,21 @@ protocol ImagesListViewControllerDelegate {
     func didTapLikeList(cell: ImagesListCell)
 }
 
-final class ImagesListViewController: UIViewController {
+protocol ImagesViewControllerProtocol: AnyObject {
+    var presenter: ImagesPresenterProtocol? { get set }
+    var photos: [Photo] { get set }
+    var imageListService: ImagesListServiceProtocol { get set }
+}
+
+final class ImagesListViewController: UIViewController & ImagesViewControllerProtocol {
+    var presenter: ImagesPresenterProtocol?
+    var photos: [Photo] = []
 
     private var imageListServiceObserver: NSObjectProtocol?
 
     @IBOutlet private var tableView: UITableView!
 
-    private var imageListService = ImagesListService()
-    private var photos: [Photo] = []
+    var imageListService: ImagesListServiceProtocol = ImagesListService()
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,15 +40,27 @@ final class ImagesListViewController: UIViewController {
         
         return dateFormatter
     }()
-    
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        presenter = ImagesPresenter(view: self, imageListService: imageListService)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        presenter?.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
 
-        imageListService.fetchPhotosNextPage()
+        presenter?.fetchPhotosNextPage()
 
         imageListServiceObserver = NotificationCenter.default.addObserver(
                 forName: ImagesListService.DidChangeNotification,
@@ -79,7 +98,6 @@ final class ImagesListViewController: UIViewController {
 }
 
 extension ImagesListViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photos.count
     }
@@ -128,7 +146,7 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastIndex = tableView.numberOfRows(inSection: 0) - 1
         if lastIndex == indexPath.row {
-            imageListService.fetchPhotosNextPage()
+            presenter?.fetchPhotosNextPage()
         }
     }
 }
@@ -138,17 +156,6 @@ extension ImagesListViewController: ImagesListViewControllerDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let photo = photos[indexPath.row]
         UIBlockingProgressHUD.show()
-        imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success():
-                self.photos = self.imageListService.photos
-                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
-                UIBlockingProgressHUD.dismiss()
-            case .failure(let error):
-                print("didTapLikeList error: \(error)")
-                UIBlockingProgressHUD.dismiss()
-            }
-        }
+        presenter?.changeLike(photo: photo, cell: cell, indexPath: indexPath)
     }
 }
