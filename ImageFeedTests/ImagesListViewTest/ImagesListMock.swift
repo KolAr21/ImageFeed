@@ -8,7 +8,7 @@
 @testable import ImageFeed
 import Foundation
 
-class ImagesListMock: ImagesListServiceProtocol {
+final class ImagesListMock: ImagesListServiceProtocol {
     var photos: [ImageFeed.Photo] = [ImageFeed.Photo(
         id: "1",
         size: CGSize(width: 10, height: 20),

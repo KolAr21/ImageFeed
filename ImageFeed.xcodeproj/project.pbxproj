@@ -35,6 +35,7 @@
 		2FCBE2472AD12C7E00C85151 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBE2462AD12C7E00C85151 /* ImagesListViewController.swift */; };
 		2FCBE24C2AD12C7F00C85151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FCBE24B2AD12C7F00C85151 /* Assets.xcassets */; };
 		2FCBE24F2AD12C7F00C85151 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FCBE24D2AD12C7F00C85151 /* LaunchScreen.storyboard */; };
+		2FCFBE702B5592DC00837C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCFBE6F2B5592DC00837C0B /* Constants.swift */; };
 		2FE275752B28758C00EB5D39 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE275742B28758C00EB5D39 /* ProgressHUD */; };
 		2FE275772B294E0F00EB5D39 /* WebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE275762B294E0F00EB5D39 /* WebData.swift */; };
 		2FE276662B38982B00EB5D39 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE276652B38982B00EB5D39 /* WebViewPresenter.swift */; };
@@ -106,6 +107,7 @@
 		2FCBE24B2AD12C7F00C85151 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FCBE24E2AD12C7F00C85151 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2FCBE2502AD12C7F00C85151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FCFBE6F2B5592DC00837C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2FE275762B294E0F00EB5D39 /* WebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebData.swift; sourceTree = "<group>"; };
 		2FE276652B38982B00EB5D39 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		2FE276672B38AA5100EB5D39 /* AuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				2FCBE2442AD12C7E00C85151 /* SceneDelegate.swift */,
 				2FB23EA32B1B82EB0073ABFC /* AlertPresenter.swift */,
 				2F3BD82F2AD930500044F4DD /* GradientView.swift */,
+				2FCFBE6F2B5592DC00837C0B /* Constants.swift */,
 				2FEB77172AFEB0FB00EB4B53 /* AuthConfiguration.swift */,
 				2FB23E712B139BAC0073ABFC /* UIBlockingProgressHUD.swift */,
 				2FCBE24B2AD12C7F00C85151 /* Assets.xcassets */,
@@ -496,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FEB771A2B00EC7000EB4B53 /* WebViewViewController.swift in Sources */,
+				2FCFBE702B5592DC00837C0B /* Constants.swift in Sources */,
 				2FB23E792B13BFBC0073ABFC /* Profile.swift in Sources */,
 				2FAA50682AE3DE24003DFA07 /* ProfileViewController.swift in Sources */,
 				2FB23E772B13BE980073ABFC /* ProfileResult.swift in Sources */,

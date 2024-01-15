@@ -33,11 +33,7 @@ final class ImagesPresenter: ImagesPresenterProtocol {
         self.imageListService = imageListService
     }
 
-    func viewDidLoad() {
-    }
-
     func fetchPhotosNextPage() {
-        print("loh")
         view?.imageListService.fetchPhotosNextPage()
     }
 
