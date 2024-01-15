@@ -2,12 +2,12 @@
 //  Constants.swift
 //  ImageFeed
 //
-//  Created by Арина Колганова on 10.11.2023.
+//  Created by Арина Колганова on 15.01.2024.
 //
 
 import Foundation
 
-struct Constants {
+enum Constants {
     static let accessKey = "Wa1xvKOYkQ-TGeXLtZ2AUgtqdLxSj6rRryXk0nZMiKw"
     static let secretKey = "33nl4tyfD1GfAK2os5r43WzholUh7MFx5n2MGO-sfb0"
     static let redirectURI = "urn:ietf:wg:oauth:2.0:oob"
