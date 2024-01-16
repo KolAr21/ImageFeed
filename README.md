@@ -24,6 +24,7 @@
 3. В приложении использованы UImageView, UIButton, UILabel, TabBarController, NavigationController, NavigationBar, UITableView, UITableViewCell.
 4. Приложение должно поддерживать устройства iPhone с iOS 13 или выше, предусмотрен только портретный режим.
 
+
 ## **Экран авторизации**
 <img src="/assets/1.png" height="699" width="322"/>
 
@@ -34,7 +35,7 @@
 <img src="/assets/3.png" height="699" width="322"/>
 
 ## **Анимация лайка**
-<img src="/assets/1.mp4" height="699" width="322"/>
+https://github.com/KolAr21/ImageFeed/assets/140378865/b1750248-798f-43e8-929c-39da52bd28c8
 
 ## **Профиль**
 <img src="/assets/4.png" height="699" width="322"/>
