@@ -25,19 +25,19 @@
 4. Приложение должно поддерживать устройства iPhone с iOS 13 или выше, предусмотрен только портретный режим.
 
 ## **Экран авторизации**
-<img src="/images/1.png" height="699" width="322"/>
+<img src="/assets/1.png" height="699" width="322"/>
 
 ## **Бесконечная лента с картинками**
-<img src="/images/2.png" height="699" width="322"/>
+<img src="/assets/2.png" height="699" width="322"/>
 
 ## **Экран с картинкой**
-<img src="/images/3.png" height="699" width="322"/>
+<img src="/assets/3.png" height="699" width="322"/>
 
 ## **Анимация лайка**
-<img src="/images/1.mp4" height="699" width="322"/>
+<img src="/assets/1.mp4" height="699" width="322"/>
 
 ## **Профиль**
-<img src="/images/4.png" height="699" width="322"/>
+<img src="/assets/4.png" height="699" width="322"/>
 
 ## **Выход из профиля**
-<img src="/images/5.png" height="699" width="322"/>
+<img src="/assets/5.png" height="699" width="322"/>
