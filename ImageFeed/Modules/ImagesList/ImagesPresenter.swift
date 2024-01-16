@@ -16,6 +16,7 @@ protocol ImagesPresenterProtocol {
 }
 
 final class ImagesPresenter: ImagesPresenterProtocol {
+
     weak var view: ImagesViewControllerProtocol?
 
     private var imageListService: ImagesListServiceProtocol
@@ -31,6 +32,9 @@ final class ImagesPresenter: ImagesPresenterProtocol {
     init(view: ImagesViewControllerProtocol? = nil, imageListService: ImagesListServiceProtocol) {
         self.view = view
         self.imageListService = imageListService
+    }
+
+    func viewDidLoad() {
     }
 
     func fetchPhotosNextPage() {
