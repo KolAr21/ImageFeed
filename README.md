@@ -35,7 +35,7 @@
 <img src="/assets/3.png" height="699" width="322"/>
 
 ## **Анимация лайка**
-https://github.com/KolAr21/ImageFeed/assets/140378865/b1750248-798f-43e8-929c-39da52bd28c8
+<img src="/assets/1.gif" height="699" width="322"/>
 
 ## **Профиль**
 <img src="/assets/4.png" height="699" width="322"/>
